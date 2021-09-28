@@ -5,7 +5,7 @@
 }
 button:hover {
   cursor: pointer;
-  outline: none;
+  border: none;
 }
 .App {
   width: 100vw;
@@ -52,13 +52,17 @@ button:hover {
 }
 .right button {
   height: 32px;
-  width: 70px;
+  width: 80px;
   font-size: 16px;
   margin-left: 1rem;
+}
+.right button:hover {
+  border-radius: 4px;
+  background: #c48f00;
+  color: #fff;
+  transition: all 0.2s ease-in-out;
 }
 .right .avatar {
   width: 50%;
   height: 50%;
 }
-
-
