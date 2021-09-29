@@ -5,13 +5,13 @@ import Home from "./components/Home";
 import NewQuestion from "./components/NewQuestion";
 import Leaderboard from "./components/Leaderboard";
 import Question from "./components/Question";
+import Login from "./components/Login";
 
 function App() {
   return (
     <div>
-      <Question/>
+      <Login />
     </div>
-    
   );
 }
 
