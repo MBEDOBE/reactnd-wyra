@@ -101,10 +101,39 @@ button:hover {
   margin: auto;
   margin-top: 20px;
 }
-.footer{
+.footer {
   margin: 24px !important;
   color: #ccc;
 }
 .input {
   margin-top: 10px;
+}
+
+/*Question detail*/
+.detail-card {
+  height: 220px;
+  width: 500px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+.detail-card .avatar {
+  float: left;
+  margin-left: 1.4rem;
+  margin-top: 2.5rem;
+}
+.detail-right {
+  margin-left: 3rem !important;
+  margin-top: 0.9rem !important;
+  padding-left: 2rem !important;
+  border-left: 2px solid #ccc !important;
+}
+.css-u4tvz2-MuiFormLabel-root {
+  color: #016779 !important;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
+  font-weight: 900 !important;
+  font-size: 1.2rem !important;
+  line-height: 1.4375em !important;
+  letter-spacing: 0.00938em !important;
+  padding: 0;
+  position: relative !important;
 }

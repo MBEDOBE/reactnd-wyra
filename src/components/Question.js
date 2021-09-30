@@ -13,7 +13,7 @@ class Question extends Component {
     return (
       <Card
         style={{
-          height: "200px",
+          height: "180px",
           width: "400px",
           margin: "0 auto",
           marginTop: "20px",
@@ -53,13 +53,6 @@ class Question extends Component {
               component="div"
             >
               Mac Miller went to school
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              color="text.secondary"
-              component="div"
-            >
-              Mac Miller went to farm
             </Typography>
             <Button
               variant="outlined"
