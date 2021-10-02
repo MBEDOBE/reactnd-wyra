@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { formatQuestion } from "../utils/helpers";
 import {
   Card,
   CardContent,
@@ -10,6 +12,13 @@ import {
 
 class Question extends Component {
   render() {
+    const {question, author, authorAvatar} = this.props;
+    if(question === null){
+      return <p>404</p>
+    }
+
+    console.log(this.props)
+    //const {text, name, authorAvatar} = question;
     return (
       <Card
         style={{
@@ -24,7 +33,7 @@ class Question extends Component {
           variant="h5"
           style={{ padding: "6px", background: "#ccc", color: "#fefefe" }}
         >
-          Dan asks
+          <span>{author.name}</span>
         </Typography>
 
         <Box sx={{ display: "flex" }} style={{ marginTop: "15px" }}>
@@ -32,7 +41,7 @@ class Question extends Component {
             style={{ borderRadius: "50%", height: "80px", marginLeft: "20px" }}
             component="img"
             sx={{ width: 80 }}
-            image="https://tylermcginnis.com/would-you-rather/sarah.jpg"
+            image={authorAvatar}
             alt="avatar"
           />
           <CardContent
@@ -52,9 +61,10 @@ class Question extends Component {
               color="text.secondary"
               component="div"
             >
-              Mac Miller went to school
+              {question.optionOne.text}...
             </Typography>
             <Button
+              //to={`/questions/${id}`}
               variant="outlined"
               size="medium"
               style={{ float: "right", marginRight: "10px" }}
@@ -67,4 +77,17 @@ class Question extends Component {
     );
   }
 }
-export default Question;
+
+function mapStateToProps({ authUser, users, questions }, { id }) {
+  const question = questions[id];
+  const author = question ? users[question.author] : null;
+  return {
+
+    authUser,
+    question,
+    author,
+    optionPreview: question['optionOne']['text'],
+    authorAvatar: users[question['author']]['avatarURL']
+  };
+}
+export default connect(mapStateToProps)(Question);

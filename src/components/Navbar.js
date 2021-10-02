@@ -1,9 +1,17 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
 import "../App.css";
+import { setAuthUser } from "../actions/authedUser";
 
 class Navbar extends Component {
+  handleLogout = () => {
+    this.props.dispatch(setAuthUser(null));
+  };
   render() {
+    const { user } = this.props;
+    const uavatar = user ? user.avatarURL : "a";
+    const uname = user ? user.name : "";
     return (
       <div className="nav">
         <div className="left">
@@ -20,14 +28,29 @@ class Navbar extends Component {
           </div>
         </div>
         <div className="right">
-          <span>
-            <img className="avatar" src="#" alt="a" />
-            Kojo
+          <span style={{ color: "#fff" }}>
+            {uname}
           </span>
-          <button>Logout</button>
+            <img className="avatar" src={uavatar} alt="a" />
+          <NavLink
+            className="logout"
+            to="/"
+            exact
+            activeClassName="active"
+            onClick={this.handleLogout}
+          >
+            Logout
+          </NavLink>
         </div>
       </div>
     );
   }
 }
-export default Navbar;
+function mapStateToProps({ authUser, users }, props) {
+  return {
+    authUser,
+    users,
+    user: users[authUser],
+  };
+}
+export default connect(mapStateToProps)(Navbar);

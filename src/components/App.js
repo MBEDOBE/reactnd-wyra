@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import "./App.css";
+import "../App.css";
+import { connect } from "react-redux";
+import { handleInitialData } from "../actions/shared";
 import Navbar from "./Navbar";
 import Home from "./Home";
 import NewQuestion from "./NewQuestion";
@@ -11,18 +13,28 @@ import QuestionDetail from "./QuestionDetail";
 import NotFound from "./NotFound";
 
 class App extends Component {
+  componentDidMount() {
+    this.props.dispatch(handleInitialData());
+  }
   render() {
+    //const {authUser} = this.props;
     return (
-      <Router>
-        <Navbar />
-        <Switch>
-          <Route path="/dashboard" exact component={Home} />
-          <Route path="/add" exact component={NewQuestion} />
-          <Route path="/leaderboard" exact component={Leaderboard} />
-        </Switch>
-      </Router>
+      
+      <div> <Home/> </div>
+      
     );
   }
 }
 
-export default App;
+export default connect()(App);
+
+
+
+  // <Router> 
+  // <Switch>
+  // <Route path="/" exact component={Login} />
+  // <Route path="/dashboard" exact component={Home} />
+  // <Route path="/add" exact component={NewQuestion} />
+  // <Route path="/leaderboard" exact component={Leaderboard} />
+  // </Switch>
+  // </Router> 

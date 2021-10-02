@@ -50,21 +50,30 @@ button:hover {
   justify-content: right;
   margin-right: 5rem;
 }
-.right button {
+.right .logout {
   height: 32px;
   width: 80px;
   font-size: 16px;
   margin-left: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ccc;
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: #c48f00;
 }
-.right button:hover {
+
+.right .logout:hover {
   border-radius: 4px;
   background: #c48f00;
   color: #fff;
   transition: all 0.2s ease-in-out;
 }
 .right .avatar {
-  width: 50%;
-  height: 50%;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
 }
 .tabs {
   font-size: 1rem !important;
