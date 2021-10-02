@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Card, Typography, Button } from "@mui/material";
 import logo from "../assets/logo.jpg";
 import { setAuthUser } from "../actions/authedUser";
-import { withRouter, Redirect, useHistory } from "react-router-dom";
+import { withRouter, Redirect} from "react-router-dom";
 import { connect } from "react-redux";
 import Navbar from "./Navbar";
 

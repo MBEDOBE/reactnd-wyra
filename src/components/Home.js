@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import {connect} from 'react-redux';
-import Question from './Question'
+
 
  function Home() {
   const [value, setValue] = React.useState(0);
@@ -11,7 +11,6 @@ import Question from './Question'
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   
 
   return (
@@ -28,14 +27,16 @@ import Question from './Question'
       <div className="tab-content">
         {/* want to display the list here based on tab clicked */}
         
+        
       </div>
     </div>
   );
 }
 
-function mapStateToProps(){
-  return{
-
-  }
+function mapStateToProps({ authUser, questions, users }) {
+  
+  return {
+    
+  };
 }
 export default connect(mapStateToProps)(Home)
