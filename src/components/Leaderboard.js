@@ -9,25 +9,21 @@ import {
   TableHead,
   TableRow,
   Paper,
-  CardMedia
+  CardMedia,
 } from "@mui/material";
+import { prepareLeaderBoard } from "../utils/helpers";
 
 class Leaderboard extends Component {
-  
-
   render() {
-    //create leaderboard using data from users props
+    //create leaderboard using data from users props just like the
     const { users } = this.props;
     const leader = users.sort((a, b) => b.score - a.score);
-    
-      
-    
-    
+
     //console.log(this.props);
-    
+
     return (
       <div>
-      <Navbar/>
+        <Navbar />
         <TableContainer
           component={Paper}
           style={{ width: "700px", margin: "0 auto", marginTop: "20px" }}
@@ -85,7 +81,9 @@ function mapStateToProps({ authUser, users }) {
   return {
     loggeOut: authUser === null,
     users: leaders,
-    userAvatar: users['avatarURL']
+    userAvatar: users["avatarURL"],
   };
 }
 export default connect(mapStateToProps)(Leaderboard);
+
+ 
