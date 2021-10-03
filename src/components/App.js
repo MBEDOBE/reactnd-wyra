@@ -19,9 +19,17 @@ class App extends Component {
   render() {
     //const {authUser} = this.props;
     return (
-      
-      <div> <Home/> </div>
-      
+      <div>
+        
+        <Router>
+          <Switch>
+            <Route path="/" exact component={Login} />
+            <Route path="/dashboard" exact component={Home} />
+            <Route path="/add" exact component={NewQuestion} />
+            <Route path="/leaderboard" exact component={Leaderboard} />
+          </Switch>
+        </Router>
+      </div>
     );
   }
 }
@@ -30,11 +38,4 @@ export default connect()(App);
 
 
 
-  // <Router> 
-  // <Switch>
-  // <Route path="/" exact component={Login} />
-  // <Route path="/dashboard" exact component={Home} />
-  // <Route path="/add" exact component={NewQuestion} />
-  // <Route path="/leaderboard" exact component={Leaderboard} />
-  // </Switch>
-  // </Router> 
+   

@@ -29,7 +29,7 @@ class Login extends Component {
   render() {
     const { users } = this.props;
 
-    let from = "/dashboard";
+    let from = "/leaderboard";
     if (this.props.location.state) {
       from = this.props.location.state.from;
     }
