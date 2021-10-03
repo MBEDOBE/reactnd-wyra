@@ -29,7 +29,7 @@ class Login extends Component {
   render() {
     const { users } = this.props;
 
-    let from = "/leaderboard";
+    let from = "/dashboard";
     if (this.props.location.state) {
       from = this.props.location.state.from;
     }
@@ -40,7 +40,6 @@ class Login extends Component {
 
     return (
       <div>
-      <Navbar/>
         <Card className="login-box">
           <Typography className="header">
             Welcome to the Would You Rather App!

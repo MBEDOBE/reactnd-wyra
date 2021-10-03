@@ -7,9 +7,7 @@ import Box from "@mui/material/Box";
 import Navbar from "./Navbar";
 import Question from "./Question";
 import { connect } from "react-redux";
-import { getUnanswered } from "../utils/helpers";
-import {_getQuestions} from '../utils/_DATA'
-
+import { userQuestionData } from "../utils/helpers";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -43,43 +41,65 @@ function a11yProps(index) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
+//state for answered and unanswered questions
+const tab0 = () => {
+  this.setState({
+    unanswered: true,
+  });
+};
 
+const tab1 = () => {
+  this.setState({
+    unanswered: false,
+  });
+};
+//const { questions, authUser } = this.props;
 
-  //const { questions, authUser } = this.props;
-  
 function Home() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  
+
+  const { notAnswered } = this.state;
+  const { answeredIds, unansweredIds } = this.props.questionsSplit;
+
+  const unAnsweredQuestions = unansweredIds.map((id) => (
+    <Question key={id} id={id} notAnswered={notAnswered} />
+  ));
+  const answeredQuestions = answeredIds.map((id) => (
+    <Question key={id} id={id} notAnswered={notAnswered} />
+  ));
+
   //const [questions, authUser] = this.props;
-   //const questionIds = this.props.unansweredIds ? this.props.answeredIds:[]
-  
+  //const questionIds = this.props.unansweredIds ? this.props.answeredIds:[]
+
   return (
-    
     <div>
       <Navbar />
       <Box sx={{ width: "50%" }} style={{ margin: "0 auto" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-          >
-            <Tab label="Unanswered" {...a11yProps(0)} />
-            <Tab label="Answered" {...a11yProps(1)} />
+          <Tabs value={value} onChange={handleChange}>
+            <Tab
+              label="Unanswered"
+              {...a11yProps(0)}
+              onClick={this.tab0}
+              active={notAnswered}
+            />
+            <Tab
+              label="Answered"
+              {...a11yProps(1)}
+              onClick={this.tab1}
+              active={!notAnswered}
+            />
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          {Object.map((id) => (
-            <li key={id}>
-              <Question id={id} />
-            </li>
-          ))}
+          {notAnswered ? unAnsweredQuestions : answeredQuestions}
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Answered
+          {!notAnswered ? answeredQuestions : unAnsweredQuestions}
         </TabPanel>
       </Box>
     </div>
@@ -87,15 +107,13 @@ function Home() {
 }
 
 function mapStateToProps({ questions, users, authUser }) {
-  const user = users[authUser];
-  const answeredIds = user ? Object.keys(user["answers"]) : [];
-  const unansweredIds = user
-    ? getUnanswered(Object.keys(questions), answeredIds)
-    : [];
+  const questionsSplit = userQuestionData(users, authUser, questions);
+
   return {
     loggedOut: authUser === null,
-    answeredIds: (questions, answeredIds),
-    unansweredIds: (questions, unansweredIds),
+    authUser,
+    questions,
+    questionsSplit,
   };
 }
 export default connect(mapStateToProps)(Home);

@@ -45,3 +45,28 @@ export function prepareLeaderBoard(users) {
 
   return leaderboard.sort((a, b) => b.score - a.score);
 }
+
+//This function helps us to know the differentiate answered from unanswered questions
+export function userQuestionData(users, authUser, questions) {
+
+  const answeredId = Object.keys(users[authUser].answers)
+    .map(ansId => {
+      return questions[ansId].id;
+    })
+    .sort((a, b) => a.timestamp - b.timestamp)
+    .reverse();
+
+    const unansweredId = Object.keys(questions)
+    .map(question => {
+      return question;
+    })
+    .sort((a, b) => a.timestamp - b.timestamp)
+    .reverse()
+    .filter(question => !answeredId.includes(question));
+
+  return {
+    userId: users[authUser].id,
+    answeredId,
+    unansweredId,
+  };
+}
