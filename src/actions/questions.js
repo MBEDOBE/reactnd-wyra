@@ -19,10 +19,8 @@ function savePoll(question) {
   };
 }
 
-//TODO: need to save this in the user as well
 export function handleSaveQuestion(optionOneText, optionTwoText, author) {
   return (dispatch) => {
-    //dispatch(showLoading());
     return saveQuestion({
       optionOneText,
       optionTwoText,
@@ -30,7 +28,6 @@ export function handleSaveQuestion(optionOneText, optionTwoText, author) {
     }).then((question) => {
       dispatch(savePoll(question));
       dispatch(addQuestionToUser(question));
-      //dispatch(hideLoading());
     });
   };
 }

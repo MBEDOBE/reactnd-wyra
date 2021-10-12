@@ -124,12 +124,4 @@ function mapStateToProps({ users, questions }, { id }) {
 }
 export default connect(mapStateToProps)(Question);
 
-/* const question = questions[id];
-const author = question ? users[question.author] : null;
-return {
-  authUser,
-  question,
-  author,
-  optionPreview: question["optionOne"]["text"],
-  authorAvatar: users[question["author"]]["avatarURL"],
-}; */
+
