@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -11,13 +12,13 @@ import {
 
 class Question extends Component {
   render() {
-    const {question, author, authorAvatar} = this.props;
-    if(question === null){
-      return <p>404</p>
-    }
+    const { questionPreview, authorName, authorAvatar, toAnswer, id } =
+      this.props;
 
-    console.log(this.props)
-    //const {text, name, authorAvatar} = question;
+    const button = toAnswer
+      ? this.questionsToAnswer(id)
+      : this.questionsAnswered(id);
+
     return (
       <Card
         style={{
@@ -29,10 +30,10 @@ class Question extends Component {
       >
         <Typography
           component="div"
-          variant="h5"
-          style={{ padding: "6px", background: "#ccc", color: "#fefefe" }}
+          variant="h6"
+          style={{ padding: "6px", background: "#016779", color: "#fefefe" }}
         >
-          <span>{author.name}</span>
+          <span style={{ fontSize: "18px" }}>{authorName} asks:</span>
         </Typography>
 
         <Box sx={{ display: "flex" }} style={{ marginTop: "15px" }}>
@@ -60,33 +61,75 @@ class Question extends Component {
               color="text.secondary"
               component="div"
             >
-              {question.optionOne.text}...
+              {questionPreview}...
             </Typography>
-            <Button
-              //to={`/questions/${id}`}
-              variant="outlined"
-              size="medium"
-              style={{ float: "right", marginRight: "10px" }}
-            >
-              View
-            </Button>
+            {button}
           </CardContent>
         </Box>
       </Card>
     );
   }
+  questionsToAnswer(id) {
+    return (
+      <Link
+        to={{
+          pathname: `/questions/${id}`,
+          state: { showResponse: false },
+        }}
+      >
+        <Button
+          variant="outlined"
+          size="medium"
+          style={{ float: "right", marginRight: "10px" }}
+        >
+          Respond
+        </Button>
+      </Link>
+    );
+  }
+  questionsAnswered(id) {
+    return (
+      <Link
+        to={{
+          pathname: `/questions/${id}`,
+          state: { showResponse: true },
+        }}
+      >
+        <Button
+          variant="outlined"
+          size="medium"
+          style={{ float: "right", marginRight: "10px" }}
+        >
+          View
+        </Button>
+      </Link>
+    );
+  }
 }
 
-function mapStateToProps({ authUser, users, questions }, { id }) {
-  const question = questions[id];
-  const author = question ? users[question.author] : null;
-  return {
+function mapStateToProps({ users, questions }, { id }) {
+  const { authorAvatar, authorName, question } = data();
 
-    authUser,
-    question,
-    author,
-    optionPreview: question['optionOne']['text'],
-    authorAvatar: users[question['author']]['avatarURL']
+  return {
+    authorAvatar,
+    authorName,
+    questionPreview: question.optionOne.text,
   };
+  function data() {
+    const question = questions[id];
+    const authorAvatar = users[question.author].avatarURL;
+    const authorName = users[question.author].name;
+    return { authorAvatar, authorName, question };
+  }
 }
 export default connect(mapStateToProps)(Question);
+
+/* const question = questions[id];
+const author = question ? users[question.author] : null;
+return {
+  authUser,
+  question,
+  author,
+  optionPreview: question["optionOne"]["text"],
+  authorAvatar: users[question["author"]]["avatarURL"],
+}; */

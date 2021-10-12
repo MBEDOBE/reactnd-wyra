@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Card, Typography, Button } from "@mui/material";
 import logo from "../assets/logo.jpg";
 import { setAuthUser } from "../actions/authedUser";
-import { withRouter, Redirect} from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Navbar from "./Navbar";
 
@@ -21,22 +21,27 @@ class Login extends Component {
   handleSubmit = (e) => {
     //handle login if user is selected
     const { uid } = this.state;
-    const { dispatch } = this.props;
+    const { dispatch, history } = this.props;
 
     dispatch(setAuthUser(uid));
     this.setState({ loggedIn: true });
+    if (window.location.pathname === "/") {
+      history.push("/dashboard");
+    } else {
+      history.push(window.location.pathname);
+    }
   };
   render() {
     const { users } = this.props;
 
-    let from = "/dashboard";
+    /* let from = "/dashboard";
     if (this.props.location.state) {
       from = this.props.location.state.from;
     }
     //redirect to dashboard after login
     if (this.state.loggedIn) {
       return <Redirect to={from} />;
-    }
+    } */
 
     return (
       <div>

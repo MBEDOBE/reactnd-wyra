@@ -4,38 +4,39 @@ import "../App.css";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
 import Navbar from "./Navbar";
+import QuestionDetail from "./QuestionDetail";
+import Login from "./Login";
 import Home from "./Home";
 import NewQuestion from "./NewQuestion";
 import Leaderboard from "./Leaderboard";
-import Question from "./Question";
-import Login from "./Login";
-import QuestionDetail from "./QuestionDetail";
-import NotFound from "./NotFound";
 
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData());
   }
   render() {
-    //const {authUser} = this.props;
+    const { loggedIn } = this.props;
     return (
-      <div>
-        
-        <Router>
+      <Router>
+        {!loggedIn ? (
+          <Route path="/" exact component={Login} />
+        ) : (
           <Switch>
-            <Route path="/" exact component={Login} />
             <Route path="/dashboard" exact component={Home} />
+            <Route path="/questions/:id" component={QuestionDetail} />
             <Route path="/add" exact component={NewQuestion} />
             <Route path="/leaderboard" exact component={Leaderboard} />
           </Switch>
-        </Router>
-      </div>
+        )}
+      </Router>
     );
   }
 }
 
-export default connect()(App);
+const mapStateToProps = ({ authUser }) => {
+  return {
+    loggedIn: authUser !== null,
+  };
+};
 
-
-
-   
+export default connect(mapStateToProps)(App);

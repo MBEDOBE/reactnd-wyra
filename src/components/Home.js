@@ -1,119 +1,83 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Navbar from "./Navbar";
+import { Tabs, Tab } from "@mui/material";
+import React, { Component } from "react";
+import {  userQuestionData } from "../utils/helpers";
 import Question from "./Question";
 import { connect } from "react-redux";
-import { userQuestionData } from "../utils/helpers";
+import Navbar from "./Navbar";
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
-//state for answered and unanswered questions
-const tab0 = () => {
-  this.setState({
-    unanswered: true,
-  });
-};
-
-const tab1 = () => {
-  this.setState({
-    unanswered: false,
-  });
-};
-//const { questions, authUser } = this.props;
-
-function Home() {
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+class Home extends Component {
+  state = {
+    value: 0,
+    toAnswer: true,
   };
 
-  const { notAnswered } = this.state;
-  const { answeredIds, unansweredIds } = this.props.questionsSplit;
+  handleTabChange = (e, value) => {
+    this.setState({ value });
+  };
 
-  const unAnsweredQuestions = unansweredIds.map((id) => (
-    <Question key={id} id={id} notAnswered={notAnswered} />
-  ));
-  const answeredQuestions = answeredIds.map((id) => (
-    <Question key={id} id={id} notAnswered={notAnswered} />
-  ));
+  unAnsweredHandler = () => {
+    this.setState({
+      toAnswer: true,
+    });
+  };
 
-  //const [questions, authUser] = this.props;
-  //const questionIds = this.props.unansweredIds ? this.props.answeredIds:[]
+  answeredHandler = () => {
+    this.setState({
+      toAnswer: false,
+    });
+  };
 
-  return (
-    <div>
-      <Navbar />
-      <Box sx={{ width: "50%" }} style={{ margin: "0 auto" }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs value={value} onChange={handleChange}>
+  render() {
+    const { toAnswer } = this.state;
+    const { answeredId, unansweredId } = this.data();
+
+    const unAnsweredQuestions = unansweredId.map((id) => (
+      <Question key={id} id={id} toAnswer={toAnswer} />
+    ));
+
+    const answeredQuestions = answeredId.map((id) => (
+      <Question id={id} key={id} toAnswer={toAnswer} />
+    ));
+    return (
+      <div className="home">
+        <Navbar history={this.props.history} />
+        <div className="tabs">
+          <Tabs
+            value={this.state.value}
+            onChange={this.handleTabChange}
+            centered
+          >
             <Tab
               label="Unanswered"
-              {...a11yProps(0)}
-              onClick={this.tab0}
-              active={notAnswered}
+              active={toAnswer}
+              onClick={this.unAnsweredHandler}
             />
             <Tab
               label="Answered"
-              {...a11yProps(1)}
-              onClick={this.tab1}
-              active={!notAnswered}
+              active={!toAnswer}
+              onClick={this.answeredHandler}
             />
           </Tabs>
-        </Box>
-        <TabPanel value={value} index={0}>
-          {notAnswered ? unAnsweredQuestions : answeredQuestions}
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          {!notAnswered ? answeredQuestions : unAnsweredQuestions}
-        </TabPanel>
-      </Box>
-    </div>
-  );
+        </div>
+        <div className="questions">
+          {toAnswer ? unAnsweredQuestions : answeredQuestions}
+        </div>
+      </div>
+    );
+  }
+
+  data() {
+    return this.props.separateQuestions;
+  }
 }
 
 function mapStateToProps({ questions, users, authUser }) {
-  const questionsSplit = userQuestionData(users, authUser, questions);
+  const separateQuestions = userQuestionData(users, authUser, questions);
 
   return {
-    loggedOut: authUser === null,
     authUser,
     questions,
-    questionsSplit,
+    separateQuestions,
   };
 }
 export default connect(mapStateToProps)(Home);

@@ -30,7 +30,13 @@ class Leaderboard extends Component {
         >
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
-              <TableRow style={{ backgroundColor: "#ccc" }}>
+              <TableRow
+                style={{
+                  backgroundColor: "#016779",
+                  color: "#fff",
+                  fontSize: "18px",
+                }}
+              >
                 <TableCell>Leader</TableCell>
                 <TableCell align="center">Questions</TableCell>
                 <TableCell align="center">Answers</TableCell>
@@ -85,5 +91,3 @@ function mapStateToProps({ authUser, users }) {
   };
 }
 export default connect(mapStateToProps)(Leaderboard);
-
- 
