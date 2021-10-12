@@ -28,7 +28,11 @@ class Login extends Component {
     if (window.location.pathname === "/") {
       history.push("/dashboard");
     } else {
-      history.push(window.location.pathname);
+      history.push(
+        this.props.location.state === undefined
+          ? "/"
+          : this.props.location.state.redirect
+      );
     }
   };
   render() {

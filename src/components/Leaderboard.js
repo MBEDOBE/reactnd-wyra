@@ -11,7 +11,7 @@ import {
   Paper,
   CardMedia,
 } from "@mui/material";
-import { prepareLeaderBoard } from "../utils/helpers";
+import { Redirect } from "react-router";
 
 class Leaderboard extends Component {
   render() {
@@ -19,7 +19,10 @@ class Leaderboard extends Component {
     const { users } = this.props;
     const leader = users.sort((a, b) => b.score - a.score);
 
-    //console.log(this.props);
+    // Redirect to login page if app is in logged out state
+    if (this.props.authUser === null) {
+      return <Redirect afterLogin="/leaderboard" />;
+    }
 
     return (
       <div>
@@ -85,7 +88,7 @@ function mapStateToProps({ authUser, users }) {
       (user.score = Object.keys(user.answers).length + user.questions.length)
   );
   return {
-    loggeOut: authUser === null,
+    //loggeOut: authUser === null,
     users: leaders,
     userAvatar: users["avatarURL"],
   };
