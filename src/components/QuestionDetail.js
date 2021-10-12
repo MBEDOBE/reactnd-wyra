@@ -43,7 +43,7 @@ class QuestionDetail extends Component {
     const { history } = this.props;
     history.goBack();
   };
-  
+
   render() {
     const { value, showResult } = this.state;
 
@@ -103,7 +103,6 @@ class QuestionDetail extends Component {
                       </div>
 
                       <FormControl
-                        onSubmit={this.handleSubmit}
                         component="fieldset"
                         className="detail-right"
                       >
