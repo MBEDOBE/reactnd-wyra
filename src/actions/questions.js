@@ -32,7 +32,7 @@ export function handleSaveQuestion(optionOneText, optionTwoText, author) {
   };
 }
 
-function saveAnswerToQuestion(authUser, qid, answer) {
+export function saveAnswerToQuestion(authUser, qid, answer) {
   return {
     type: SAVE_ANSWER_TO_QUESTION,
     authUser,

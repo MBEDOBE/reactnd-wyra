@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Redirect, withRouter } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 function ProtectedRoute({ component: Component, ...rest }) {
@@ -28,4 +28,4 @@ function mapStateToProps({ authUser }) {
   };
 }
 
-export default withRouter(connect(mapStateToProps)(ProtectedRoute));
+export default connect(mapStateToProps)(ProtectedRoute);

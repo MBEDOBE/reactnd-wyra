@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import "../App.css";
 import { setAuthUser } from "../actions/authedUser";
@@ -9,9 +9,12 @@ class Navbar extends Component {
     this.props.dispatch(setAuthUser(null));
   };
   render() {
-    const { user } = this.props;
+    const { user, authUser } = this.props;
     const uavatar = user ? user.avatarURL : "a";
     const uname = user ? user.name : "";
+    //redirect
+    if (!authUser) return <Link to="/" />;
+
     return (
       <div className="nav">
         <div className="left">
@@ -28,10 +31,8 @@ class Navbar extends Component {
           </div>
         </div>
         <div className="right">
-          <span style={{ color: "#fff" }}>
-            {uname}
-          </span>
-            <img className="avatar" src={uavatar} alt="a" />
+          <span style={{ color: "#fff" }}>{uname}</span>
+          <img className="avatar" src={uavatar} alt="a" />
           <NavLink
             className="logout"
             to="/"

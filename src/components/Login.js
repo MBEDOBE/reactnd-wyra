@@ -41,11 +41,12 @@ class Login extends Component {
     /* let from = "/dashboard";
     if (this.props.location.state) {
       from = this.props.location.state.from;
-    }
-    //redirect to dashboard after login
-    if (this.state.loggedIn) {
-      return <Redirect to={from} />;
     } */
+    const { from } = this.props.location.state || { from: { pathname: "/" } };
+    //redirect to dashboard after login
+    if (this.state.redirect === true) {
+      return <Redirect to={from} />;
+    }
 
     return (
       <div>

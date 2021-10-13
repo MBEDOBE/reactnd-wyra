@@ -16,29 +16,19 @@ class App extends Component {
     this.props.dispatch(handleInitialData());
   }
   render() {
-    const { loggedIn } = this.props;
+    //const { loggedIn } = this.props;
     return (
       <Router>
-        {!loggedIn ? (
-          <Route path="/" exact component={Login} />
-        ) : (
-          <Fragment>
-            <Switch>
-              <ProtectedRoute path="/dashboard" exact component={Home} />
-              <ProtectedRoute
-                path="/questions/:id"
-                component={QuestionDetail}
-              />
-              <ProtectedRoute path="/add" exact component={NewQuestion} />
-              <ProtectedRoute
-                path="/leaderboard"
-                exact
-                component={Leaderboard}
-              />
-              <Route path="/not-found" component={NotFound} />
-            </Switch>
-          </Fragment>
-        )}
+        <Fragment>
+          <Switch>
+            <Route path="/" exact component={Login} />
+            <ProtectedRoute path="/dashboard" exact component={Home} />
+            <ProtectedRoute path="/questions/:id" component={QuestionDetail} />
+            <ProtectedRoute path="/add" exact component={NewQuestion} />
+            <ProtectedRoute path="/leaderboard" exact component={Leaderboard} />
+            <Route path="*" component={NotFound} />
+          </Switch>
+        </Fragment>
       </Router>
     );
   }

@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { connect } from "react-redux";
 import Result from "../components/Result";
-import { handleAnswer } from "../actions/questions";
+import { handleAnswer, saveAnswerToQuestion } from "../actions/questions";
 import Navbar from "./Navbar";
 import NotFound from "./NotFound";
 import { questionPageData } from "../utils/helpers";
@@ -30,9 +30,9 @@ class QuestionDetail extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { authUser, id, handleAnswer } = this.props;
+    const { authUser, id } = this.props;
     const { value } = this.state;
-    handleAnswer(authUser, id, value);
+    saveAnswerToQuestion(authUser, id, value);
     this.setState((prevState) => ({
       ...prevState,
       showResult: true,
@@ -115,18 +115,22 @@ class QuestionDetail extends Component {
                             value={optionOne}
                             control={<Radio />}
                             label={optionOne}
-                            checked={value === optionOne}
+                            //checked={value === optionOne}
+                            onChange={this.handleChange}
                           />
                           <FormControlLabel
                             value={optionTwo}
                             control={<Radio />}
                             label={optionTwo}
-                            checked={value === optionTwo}
+                            //checked={value === optionTwo}
+                            onChange={this.handleChange}
                           />
                         </RadioGroup>
 
                         <Button
-                          onClick={this.handleSubmit}
+                          onClick={(e) => {
+                            this.handleSubmit(e);
+                          }}
                           variant="contained"
                           size="medium"
                           content="Submit"
