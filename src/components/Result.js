@@ -3,9 +3,10 @@ import { Circle } from "rc-progress";
 import { Button, Card, Typography, CardMedia } from "@mui/material";
 import Navbar from "./Navbar";
 import { connect } from "react-redux";
-import { responsePageData } from "../utils/helpers";
+import { resultData } from "../utils/helpers";
 import NotFound from "./NotFound";
 
+const selectedAnswer = { backgroundColor: "#35424A", color: "#fff" };
 class Result extends Component {
   btnBackClick = () => {
     const { history } = this.props;
@@ -22,9 +23,12 @@ class Result extends Component {
       optionOneVotes,
       optionTwoVotes,
       totalVotes,
-      loggedInUser,
       validId,
     } = this.props;
+
+    let styleOne = null;
+    let styleTwo = null;
+    answeredQuestionBg();
 
     return (
       <div>
@@ -63,7 +67,7 @@ class Result extends Component {
                   <span>{authorName}</span>
                 </div>
                 <div className="result-page">
-                  <Typography>1. {optionOne}</Typography>
+                  <Typography style={styleOne}>1. {optionOne}</Typography>
 
                   <Circle
                     percent={calcOptionOneRes()}
@@ -71,14 +75,13 @@ class Result extends Component {
                     className="percentage"
                     strokeWidth="6"
                     strokeLinecap="round"
-                    style={{ width: "50%" }}
+                    style={{ width: "50%", marginTop: "10px" }}
                   />
                   <span>{calcOptionOneRes()}%</span>
                   <h5>{`${optionOneVotes} out of ${totalVotes}`}</h5>
-                  <img alt="badge" src={"check"} className="badge" />
                 </div>
                 <div className="result-page">
-                  <Typography>2. {optionTwo}</Typography>
+                  <Typography style={styleTwo}>2. {optionTwo}</Typography>
 
                   <Circle
                     percent={calcOptionTwoRes()}
@@ -86,11 +89,10 @@ class Result extends Component {
                     className="percentage"
                     strokeWidth="6"
                     strokeLinecap="round"
-                    style={{ width: "50%" }}
+                    style={{ width: "50%", marginTop: "10px" }}
                   />
                   <span>{calcOptionTwoRes()}%</span>
                   <h5>{`${optionTwoVotes} out of ${totalVotes}`}</h5>
-                  <img alt="badge" src={"check"} className="badge" />
                 </div>
               </div>
             </Card>
@@ -101,15 +103,22 @@ class Result extends Component {
             >
               Back
             </Button>
-            <div
-              style={{ backgroundColor: `lavenderblush`, padding: `10px` }}
-            >{`${loggedInUser} selection`}</div>
           </Fragment>
         ) : (
           <NotFound />
         )}
       </div>
     );
+    function answeredQuestionBg() {
+      if (userAnswer === "optionOne") {
+        styleOne = selectedAnswer;
+        styleTwo = null;
+      } else {
+        styleOne = null;
+        styleTwo = selectedAnswer;
+      }
+    }
+
     function calcOptionOneRes() {
       return Math.round((optionOneVotes / totalVotes) * 100);
     }
@@ -130,7 +139,7 @@ function mapStateToProps({ users, questions, authUser }, { id }) {
     userAnswer,
     loggedInUser,
     validId,
-  } = responsePageData(users, questions, authUser, id);
+  } = resultData(users, questions, authUser, id);
 
   return {
     authorName,
@@ -143,6 +152,7 @@ function mapStateToProps({ users, questions, authUser }, { id }) {
     userAnswer,
     loggedInUser,
     validId,
+    
   };
 }
 export default connect(mapStateToProps)(Result);

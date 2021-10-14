@@ -57,7 +57,7 @@ export function userQuestionData(users, authUser, questions) {
 
 //This functions will structure data for QuestionPage
 
-export function questionPageData(questions, users, props) {
+export function questionData(questions, users, props) {
   let { question, authorAvatar, authorName, optionOne, optionTwo } = "";
   const id = props.match.params.id;
   const validId = id in questions;
@@ -82,7 +82,7 @@ export function questionPageData(questions, users, props) {
 
 //This function will struture data for QuestionResultPage
 
-export function responsePageData(users, questions, authUser, id) {
+export function resultData(users, questions, authUser, id) {
   const validId = id in questions;
   let {
     authorName,

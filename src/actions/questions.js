@@ -19,6 +19,7 @@ function savePoll(question) {
   };
 }
 
+//TODO: need to save this in the user as well
 export function handleSaveQuestion(optionOneText, optionTwoText, author) {
   return (dispatch) => {
     return saveQuestion({
@@ -32,7 +33,7 @@ export function handleSaveQuestion(optionOneText, optionTwoText, author) {
   };
 }
 
-export function saveAnswerToQuestion(authUser, qid, answer) {
+function saveAnswerToQuestion(authUser, qid, answer) {
   return {
     type: SAVE_ANSWER_TO_QUESTION,
     authUser,
@@ -41,7 +42,7 @@ export function saveAnswerToQuestion(authUser, qid, answer) {
   };
 }
 
-export function handleAnswer(authUser, qid, answer) {
+export function handleSaveAnswer(authUser, qid, answer) {
   return (dispatch) => {
     dispatch(saveAnswerToQuestion(authUser, qid, answer));
     dispatch(addAnswerToUser(authUser, qid, answer));

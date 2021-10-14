@@ -7,7 +7,6 @@ import logo from "../assets/logo.jpg";
 import { setAuthUser } from "../actions/authedUser";
 import { withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import Navbar from "./Navbar";
 
 class Login extends Component {
   state = {
@@ -25,6 +24,9 @@ class Login extends Component {
 
     dispatch(setAuthUser(uid));
     this.setState({ loggedIn: true });
+    this.redirectMethod(history);
+  };
+  redirectMethod(history) {
     if (window.location.pathname === "/") {
       history.push("/dashboard");
     } else {
@@ -34,14 +36,10 @@ class Login extends Component {
           : this.props.location.state.redirect
       );
     }
-  };
+  }
+
   render() {
     const { users } = this.props;
-
-    /* let from = "/dashboard";
-    if (this.props.location.state) {
-      from = this.props.location.state.from;
-    } */
     const { from } = this.props.location.state || { from: { pathname: "/" } };
     //redirect to dashboard after login
     if (this.state.redirect === true) {

@@ -12,14 +12,14 @@ import {
 } from "@mui/material";
 import { connect } from "react-redux";
 import Result from "../components/Result";
-import { handleAnswer, saveAnswerToQuestion } from "../actions/questions";
+import { handleSaveAnswer } from "../actions/questions";
 import Navbar from "./Navbar";
 import NotFound from "./NotFound";
-import { questionPageData } from "../utils/helpers";
+import { questionData } from "../utils/helpers";
 
 class QuestionDetail extends Component {
   state = {
-    value: null,
+    value: null,    
   };
 
   handleChange = (e) => {
@@ -30,12 +30,12 @@ class QuestionDetail extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { authUser, id } = this.props;
+    //const answer = e.target.value;
+    const { authUser, id, handleSaveAnswer } = this.props;
     const { value } = this.state;
-    saveAnswerToQuestion(authUser, id, value);
-    this.setState((prevState) => ({
-      ...prevState,
-      showResult: true,
+    handleSaveAnswer(authUser, id, value);
+    this.setState(() => ({
+      showResult: true, 
     }));
   };
 
@@ -112,14 +112,14 @@ class QuestionDetail extends Component {
 
                         <RadioGroup value={value} onChange={this.handleChange}>
                           <FormControlLabel
-                            value={optionOne}
+                            value="optionOne"
                             control={<Radio />}
                             label={optionOne}
                             //checked={value === optionOne}
                             onChange={this.handleChange}
                           />
                           <FormControlLabel
-                            value={optionTwo}
+                            value="optionTwo"
                             control={<Radio />}
                             label={optionTwo}
                             //checked={value === optionTwo}
@@ -168,7 +168,7 @@ function mapStateToProps({ questions, authUser, users }, props) {
     validId,
     question,
     authorAvatar,
-  } = questionPageData(questions, users, props);
+  } = questionData(questions, users, props);
 
   return {
     authUser,
@@ -181,4 +181,4 @@ function mapStateToProps({ questions, authUser, users }, props) {
     authorAvatar,
   };
 }
-export default connect(mapStateToProps, { handleAnswer })(QuestionDetail);
+export default connect(mapStateToProps, { handleSaveAnswer })(QuestionDetail);
