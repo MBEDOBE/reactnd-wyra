@@ -57,9 +57,9 @@ class QuestionDetail extends Component {
       authorAvatar,
     } = this.props;
 
-    let btnDisabled = true;
-    if (value !== null) {
-      btnDisabled = false;
+    let btnDisabled = false;
+    if (value === null) {
+      btnDisabled = true;
     }
 
     let showQuestionResponse = true;
