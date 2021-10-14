@@ -5,7 +5,7 @@ import "../App.css";
 import { setAuthUser } from "../actions/authedUser";
 
 class Navbar extends Component {
-  handleLogout = () => {
+  logoutUser = () => {
     this.props.dispatch(setAuthUser(null));
   };
   render() {
@@ -38,7 +38,7 @@ class Navbar extends Component {
             to="/"
             exact
             activeClassName="active"
-            onClick={this.handleLogout}
+            onClick={this.logoutUser}
           >
             Logout
           </NavLink>

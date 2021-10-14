@@ -31,6 +31,10 @@ class NewQuestion extends Component {
       () => dispatch(handleSaveQuestion(optionOneText, optionTwoText, authUser))
     );
   };
+  btnBackClick = () => {
+    const { history } = this.props;
+    history.goBack();
+  };
 
   render() {
     const { optionOneText, optionTwoText, onSubmit } = this.state;
@@ -41,86 +45,98 @@ class NewQuestion extends Component {
 
     return (
       <div>
-        <Navbar history={this.props.history} />
-        <Card
-          style={{
-            height: "370px",
-            width: "400px",
-            margin: "0 auto",
-            marginTop: "20px",
-          }}
-        >
-          <Typography
-            component="div"
-            variant="h5"
-            style={{ padding: "6px", background: "#016779", color: "#fefefe" }}
-          >
-            Create New Poll
-          </Typography>
-          <Box
+        <div>
+          <Navbar history={this.props.history} />
+          <Card
             style={{
-              display: "flex",
-              flexDirection: "column",
+              height: "370px",
+              width: "400px",
+              margin: "0 auto",
+              marginTop: "20px",
             }}
-            component="form"
-            sx={{
-              "& > :not(style)": { m: 2, width: "40ch" },
-            }}
-            noValidate
-            autoComplete="off"
           >
-            <Typography variant="h6" style={{ marginBottom: "0" }}>
-              Would you rather...
-            </Typography>
-            <TextField
-              id="outlined-basic"
-              label="Option One here..."
-              variant="outlined"
-              value={optionOneText}
-              onChange={this.handleInputChange("optionOneText")}
-            />
-            <span
+            <Typography
+              component="div"
+              variant="h5"
               style={{
-                textAlign: "center",
-                margin: "0 auto",
-                border: "1px solid #ccc",
-                borderRadius: "50%",
-                width: "20px",
-                height: "20px",
-                padding: "5px",
-                color: "#016779",
+                padding: "6px",
+                background: "#016779",
+                color: "#fefefe",
               }}
             >
-              Or
-            </span>
-            <TextField
-              id="outlined-basic"
-              label="Option Two here..."
-              variant="outlined"
-              value={optionTwoText}
-              onChange={this.handleInputChange("optionTwoText")}
-            />
-            <Button
-              variant="outlined"
-              size="medium"
-              style={{ width: "360px" }}
-              onClick={this.submitQuestion}
-              disabled={optionOneText === "" || optionTwoText === ""}
+              Create New Poll
+            </Typography>
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "column",
+              }}
+              component="form"
+              sx={{
+                "& > :not(style)": { m: 2, width: "40ch" },
+              }}
+              noValidate
+              autoComplete="off"
             >
-              Submit
-            </Button>
-            console.log(submitQuestion)
-          </Box>
-        </Card>
+              <Typography variant="h6" style={{ marginBottom: "0" }}>
+                Would you rather...
+              </Typography>
+              <TextField
+                id="outlined-basic"
+                label="Option One here..."
+                variant="outlined"
+                value={optionOneText}
+                onChange={this.handleInputChange("optionOneText")}
+              />
+              <span
+                style={{
+                  textAlign: "center",
+                  margin: "0 auto",
+                  border: "1px solid #ccc",
+                  borderRadius: "50%",
+                  width: "20px",
+                  height: "20px",
+                  padding: "5px",
+                  color: "#016779",
+                }}
+              >
+                Or
+              </span>
+              <TextField
+                id="outlined-basic"
+                label="Option Two here..."
+                variant="outlined"
+                value={optionTwoText}
+                onChange={this.handleInputChange("optionTwoText")}
+              />
+              <Button
+                variant="outlined"
+                size="medium"
+                style={{ width: "360px" }}
+                onClick={this.submitQuestion}
+                disabled={optionOneText === "" || optionTwoText === ""}
+              >
+                Submit
+              </Button>
+              console.log(submitQuestion)
+            </Box>
+          </Card>
+        </div>
+        <Button
+          variant="contained"
+          style={{ marginLeft: "233px", marginTop: "10px" }}
+          onClick={this.btnBackClick}
+        >
+          Back
+        </Button>
       </div>
     );
   }
 }
 
-function mapStateToProps({ authUser, loadingBar }) {
+function mapStateToProps({ authUser }) {
   return {
     authUser,
-    loadingBar,
   };
 }
 

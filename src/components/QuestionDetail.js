@@ -19,7 +19,7 @@ import { questionData } from "../utils/helpers";
 
 class QuestionDetail extends Component {
   state = {
-    value: null,    
+    value: null,
   };
 
   handleChange = (e) => {
@@ -35,7 +35,7 @@ class QuestionDetail extends Component {
     const { value } = this.state;
     handleSaveAnswer(authUser, id, value);
     this.setState(() => ({
-      showResult: true, 
+      showResult: true,
     }));
   };
 
@@ -56,11 +56,6 @@ class QuestionDetail extends Component {
       optionTwo,
       authorAvatar,
     } = this.props;
-
-    let btnDisabled = false;
-    if (value === null) {
-      btnDisabled = true;
-    }
 
     let showQuestionResponse = true;
     if (typeof location.state !== "undefined") {
@@ -134,7 +129,7 @@ class QuestionDetail extends Component {
                           variant="contained"
                           size="medium"
                           content="Submit"
-                          disabled={btnDisabled}
+                          disabled={value === null}
                           style={{
                             float: "right",
                             marginRight: "10px",

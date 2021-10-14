@@ -7,12 +7,12 @@ import { Provider } from "react-redux";
 import reducer from "./reducers";
 import middleware from "./middleware";
 import reportWebVitals from "./reportWebVitals";
-import {createBrowserHistory} from 'history'
+import { createBrowserHistory } from "history";
 
 const store = createStore(reducer, middleware);
-//const history = createBrowserHistory();
+const history = createBrowserHistory();
 ReactDOM.render(
-  <Provider store={store} >
+  <Provider store={store} history={history}>
     <App />
   </Provider>,
   document.getElementById("root")

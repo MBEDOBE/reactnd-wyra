@@ -15,11 +15,11 @@ import { Redirect } from "react-router";
 
 class Leaderboard extends Component {
   render() {
-    //create leaderboard using data from users props just like the
+    //create leaderboard using data from users props
     const { users } = this.props;
     const leader = users.sort((a, b) => b.score - a.score);
 
-    // Redirect to login page if app is in logged out state
+    // Redirect to login page if user is logged out
     if (this.props.authUser === null) {
       return <Redirect afterLogin="/leaderboard" />;
     }
@@ -88,7 +88,6 @@ function mapStateToProps({ authUser, users }) {
       (user.score = Object.keys(user.answers).length + user.questions.length)
   );
   return {
-    //loggeOut: authUser === null,
     users: leaders,
     userAvatar: users["avatarURL"],
   };

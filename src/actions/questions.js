@@ -45,7 +45,7 @@ export function handleSaveAnswer(authUser, qid, answer) {
   return (dispatch) => {
     dispatch(addAnswerToUser(authUser, qid, answer));
     dispatch(saveAnswerToQuestion(authUser, qid, answer));
-    return saveAnswer(authUser, qid, answer).catch((e) => {
+    return saveAnswer({ authUser, qid, answer }).catch((e) => {
       console.warn("Error in handleSaveAnswer:", e);
     });
   };
