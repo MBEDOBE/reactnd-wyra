@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { resultData } from "../utils/helpers";
 import NotFound from "./NotFound";
 
-const selectedAnswer = { backgroundColor: "#35424A", color: "#fff" };
+const selectedAnswer = { backgroundColor: "#0B5394", color: "#fff" };
 class Result extends Component {
   btnBackClick = () => {
     const { history } = this.props;
@@ -152,7 +152,6 @@ function mapStateToProps({ users, questions, authUser }, { id }) {
     userAnswer,
     loggedInUser,
     validId,
-    
   };
 }
 export default connect(mapStateToProps)(Result);

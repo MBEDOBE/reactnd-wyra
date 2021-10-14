@@ -1,4 +1,4 @@
-import { saveQuestion, saveQuestionAnswer } from "../utils/api";
+import { saveQuestion, saveAnswer } from "../utils/api";
 import { addQuestionToUser, addAnswerToUser } from "../actions/users";
 
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
@@ -19,7 +19,6 @@ function savePoll(question) {
   };
 }
 
-//TODO: need to save this in the user as well
 export function handleSaveQuestion(optionOneText, optionTwoText, author) {
   return (dispatch) => {
     return saveQuestion({
@@ -44,9 +43,9 @@ function saveAnswerToQuestion(authUser, qid, answer) {
 
 export function handleSaveAnswer(authUser, qid, answer) {
   return (dispatch) => {
-    dispatch(saveAnswerToQuestion(authUser, qid, answer));
     dispatch(addAnswerToUser(authUser, qid, answer));
-    return saveQuestionAnswer(authUser, qid, answer).catch((e) => {
+    dispatch(saveAnswerToQuestion(authUser, qid, answer));
+    return saveAnswer(authUser, qid, answer).catch((e) => {
       console.warn("Error in handleSaveAnswer:", e);
     });
   };
