@@ -10,7 +10,7 @@ class NotFound extends Component {
         >
           404 Page not found
         </h3>
-        <button>
+        <button style={{ marginLeft: "400px", marginTop: '30px' }}>
           <Link to="/dashboard">Back Home</Link>
         </button>
       </div>
