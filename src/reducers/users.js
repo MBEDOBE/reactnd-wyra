@@ -23,6 +23,7 @@ export default function users(state = {}, action) {
     case ADD_ANSWER_TO_USER:
       const { authUser, qid, answer } = action;
 
+      console.log("c", authUser);
       return {
         ...state,
         [authUser]: {
