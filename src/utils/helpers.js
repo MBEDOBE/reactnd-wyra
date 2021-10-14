@@ -11,7 +11,7 @@ export function userOptions(users) {
 }
 
 //This function will set up the users with the proper data structure
-// and the correct order for the leaderboard page, decending order
+// and the correct order for the leaderboard page
 export function leaderboardData(users) {
   return Object.keys(users)
     .map((user) => {
@@ -55,7 +55,7 @@ export function userQuestionData(users, authUser, questions) {
   };
 }
 
-//This functions will structure data for QuestionPage
+//This functions will structure data for Question Details Page
 
 export function questionData(questions, users, props) {
   let { question, authorAvatar, authorName, optionOne, optionTwo } = "";
