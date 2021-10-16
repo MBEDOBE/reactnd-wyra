@@ -31,6 +31,7 @@ class NewQuestion extends Component {
       () => dispatch(handleSaveQuestion(optionOneText, optionTwoText, authUser))
     );
   };
+
   btnBackClick = () => {
     const { history } = this.props;
     history.goBack();

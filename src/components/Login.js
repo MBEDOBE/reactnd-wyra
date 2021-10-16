@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Card, Typography, Button } from "@mui/material";
 import logo from "../assets/logo.jpg";
 import { setAuthUser } from "../actions/authedUser";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Login extends Component {
@@ -26,9 +26,10 @@ class Login extends Component {
     this.setState({ loggedIn: true });
     this.redirectMethod(history);
   };
+
   redirectMethod(history) {
     if (window.location.pathname === "/") {
-      history.push("/dashboard");
+      history.push(this.props.location.state || "/dashboard");
     } else {
       history.push(
         this.props.location.state === undefined
@@ -40,11 +41,6 @@ class Login extends Component {
 
   render() {
     const { users } = this.props;
-    const { from } = this.props.location.state || { from: { pathname: "/" } };
-    //redirect to dashboard after login
-    if (this.state.redirect === true) {
-      return <Redirect to={from} />;
-    }
 
     return (
       <div>

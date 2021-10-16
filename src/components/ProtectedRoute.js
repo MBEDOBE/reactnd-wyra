@@ -2,22 +2,22 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-function ProtectedRoute({ component: Component, ...rest }) {
+function ProtectedRoute({ component: Component, authUser, ...rest }) {
   return (
     <Route
       {...rest}
-      render={function (props) {
-        return rest.authUser ? (
+      render={(props) =>
+        authUser !== null ? (
           <Component {...props} />
         ) : (
           <Redirect
             to={{
               pathname: "/",
-              state: { from: props.location },
+              state: props.location,
             }}
           />
-        );
-      }}
+        )
+      }
     />
   );
 }
